@@ -6,8 +6,14 @@
 #ifndef laby_h 
 #define laby_h
 
+#define SIZE 5
+
 /* Functions definitions */
 int **initLaby();
+
+void showLaby(int **laby);
+
+void loadLaby(int **laby);
 
 
 #endif
