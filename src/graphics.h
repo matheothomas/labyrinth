@@ -7,7 +7,7 @@
 #define graphics_h
 
 /* Functions definitions */
-void showWindow(SDL_Renderer *renderer);
+void showWindow(SDL_Renderer *renderer, int **laby);
 
 
 #endif
