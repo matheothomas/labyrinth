@@ -9,28 +9,17 @@
 #include<SDL2/SDL.h>
 #include<SDL2/SDL_image.h>
 #include<SDL2/SDL_ttf.h>
+
 #include "graphics.h"
-
-#define SIZE 20
-
-int **initLaby(){
-	int **laby = (int **)malloc(SIZE*sizeof(int *));
-	for(int i = 0; i < SIZE; i++){
-		laby[i] = (int *)malloc(SIZE*sizeof(int));
-		for(int j = 0; j < SIZE; j++){
-			laby[i][j] = 0;
-		}
-	}
-	return laby;
-}
-
-
+#include "laby.h"
 
 
 int main(void){
 	int **laby = initLaby();
+	//showLaby(laby);
+	loadLaby(laby);
+	showLaby(laby);
 
-	
 
 	// Graphical interface initialisation
 	if(SDL_Init(SDL_INIT_VIDEO) <0){
@@ -38,7 +27,7 @@ int main(void){
 		return EXIT_FAILURE;
 	}
 	int width = 800;
-	int height = 860;
+	int height = 800;
 	SDL_Window *window;
 	window = SDL_CreateWindow("SDL2 Programme 0.1", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 			width, height,
@@ -81,7 +70,7 @@ int main(void){
 							printf("Size : %d%d\n", width, height);
 							break;
 						default:
-							showWindow(renderer);
+							showWindow(renderer, laby);
 							break;
 
 					}
