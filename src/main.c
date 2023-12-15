@@ -14,11 +14,12 @@
 #include "laby.h"
 
 
+#define SIZE 100
+
 int main(void){
-	int **laby = initLaby();
-	//showLaby(laby);
-	loadLaby(laby);
-	showLaby(laby);
+	int **laby = initLaby(SIZE);
+	genLaby(laby, SIZE);
+	//showLaby(laby, SIZE);
 
 
 	// Graphical interface initialisation
@@ -35,6 +36,7 @@ int main(void){
 	if(window == 0){
 		fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError());
 	}
+	SDL_SetWindowTitle(window, "Matheo's labyrinth");
 	SDL_Renderer *renderer;
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	if(renderer == 0){
@@ -70,7 +72,7 @@ int main(void){
 							printf("Size : %d%d\n", width, height);
 							break;
 						default:
-							showWindow(renderer, laby);
+							showWindow(renderer, laby, SIZE);
 							break;
 
 					}

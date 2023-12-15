@@ -5,11 +5,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "laby.h"
 
 
-int **initLaby(){
+int **initLaby(int SIZE){
 	int **laby = (int **)malloc(SIZE*SIZE*sizeof(int *));
 	for(int i = 0; i < SIZE*SIZE; i++){
 		laby[i] = (int *)malloc(SIZE*SIZE*sizeof(int));
@@ -20,7 +21,7 @@ int **initLaby(){
 	return laby;
 }
 
-void showLaby(int **laby){
+void showLaby(int **laby, int SIZE){
 	for(int i = 0; i < SIZE*SIZE; i++){
 		for(int j = 0; j < SIZE*SIZE; j++){
 			printf("%d ", laby[i][j]);
@@ -29,7 +30,7 @@ void showLaby(int **laby){
 	}
 }
 
-void loadLaby(int **laby){
+void loadLaby(int **laby, int SIZE){
 	for(int i = 0; i < SIZE-1; i++){
 		laby[i][i+1] = 1;
 		laby[SIZE*i][SIZE*(i+1)] = 1;
@@ -47,5 +48,26 @@ void loadLaby(int **laby){
 	laby[12][17] = 1;
 	laby[18][19] = 1;
 	laby[17][22] = 1;
+
+}
+
+void genLaby(int **laby, int SIZE){
+	srand(time(0));
+
+	for(int i = 0; i < SIZE-1; i++){
+		laby[i][i+1] = 1;
+		laby[SIZE*i][SIZE*(i+1)] = 1;
+		laby[SIZE*(SIZE-1)+i][SIZE*(SIZE-1)+i+1] = 1;
+		laby[SIZE*(i+1)-1][SIZE*(i+2)-1] = 1;
+	}
+
+	for(int i = 0; i < SIZE-1; i++){
+		for(int j = 1; j < SIZE-1; j++){
+			laby[i+j*SIZE][i+1+j*SIZE] = rand()%2;
+			laby[SIZE*i+j][SIZE*(i+1)+j] = rand()%2;
+		}
+	}
+	laby[0][SIZE] = 0;
+	laby[SIZE*(SIZE-1)-1][SIZE*SIZE-1] = 0;
 
 }
