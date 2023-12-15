@@ -9,6 +9,7 @@ The goal of this project is to visualise a labyrinth, to learn how to generate o
     - [ ] Randomised Kruskal's algorithm
     - [ ] Randomised Prim's algorithm
 - [ ] Make a maze solver.
+    - [ ] Use Pledge's algorithm
 
 ## Requirements
 - git
