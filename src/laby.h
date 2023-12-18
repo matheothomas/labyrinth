@@ -16,6 +16,10 @@ void loadLaby(int **laby, int SIZE);
 
 void genLaby(int **laby, int SIZE);
 
+void prepLaby(int **laby, int SIZE);
+
+void genLabyDepth(int **laby, int *visited, int SIZE, int n);
+
 
 #endif
 

@@ -10,13 +10,14 @@
 #include "laby.h"
 
 
+
 int **initLaby(int SIZE){
 	int **laby = (int **)malloc(SIZE*SIZE*sizeof(int *));
 	for(int i = 0; i < SIZE*SIZE; i++){
 		laby[i] = (int *)malloc(SIZE*SIZE*sizeof(int));
 		for(int j = 0; j < SIZE*SIZE; j++){
 			laby[i][j] = 0;
-}
+		}
 	}
 	return laby;
 }
@@ -71,3 +72,48 @@ void genLaby(int **laby, int SIZE){
 	laby[SIZE*(SIZE-1)-1][SIZE*SIZE-1] = 0;
 
 }
+
+
+void prepLaby(int **laby, int SIZE){
+	for(int i = 0; i < SIZE-1; i++){
+		for(int j = 0; j < SIZE; j++){
+			laby[i+j*SIZE][i+1+j*SIZE] = 1;
+			laby[SIZE*i+j][SIZE*(i+1)+j] = 1;
+		}
+	}
+	laby[0][SIZE] = 0;
+	laby[SIZE*(SIZE-1)-1][SIZE*SIZE-1] = 0;
+
+}
+
+
+void genLabyDepth(int **laby, int *visited, int SIZE, int n){
+	printf("recursion\n");
+	srand(time(0));
+	//int *tab = (int *)malloc(4*sizeof(int));
+	int tab[4] = { n-1, n+1, n-SIZE, n+SIZE };
+	//int i = 0;
+	visited[n] = 1;
+	int i = 0;
+	for(int j = 0; j < 4; j++){
+		if(visited[tab[j]] == 0){
+			i++;
+		}
+	}
+
+	int r = rand()%i;
+	while(i != 1){
+		if(visited[tab[r%i]] == 0){
+			laby[n][tab[r%i]] = 0;
+			printf("%d\n", tab[r%i]);
+			genLabyDepth(laby, visited, SIZE, tab[r%i]);
+			i--;
+		} else {
+			r++;
+		}
+		printf("loop\n");
+	}
+}
+
+
+
