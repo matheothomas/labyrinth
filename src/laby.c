@@ -89,29 +89,50 @@ void prepLaby(int **laby, int SIZE){
 
 void genLabyDepth(int **laby, int *visited, int SIZE, int n){
 	printf("recursion\n");
-	srand(time(0));
-	//int *tab = (int *)malloc(4*sizeof(int));
-	int tab[4] = { n-1, n+1, n-SIZE, n+SIZE };
-	//int i = 0;
-	visited[n] = 1;
-	int i = 0;
-	for(int j = 0; j < 4; j++){
-		if(visited[tab[j]] == 0){
-			i++;
-		}
-	}
+	if(n >= SIZE*(SIZE-1)){
 
-	int r = rand()%i;
-	while(i != 1){
-		if(visited[tab[r%i]] == 0){
-			laby[n][tab[r%i]] = 0;
-			printf("%d\n", tab[r%i]);
-			genLabyDepth(laby, visited, SIZE, tab[r%i]);
-			i--;
-		} else {
-			r++;
+	} else {
+
+		//int *tab = (int *)malloc(4*sizeof(int));
+		int tab[4] = { n-1, n+1, n-SIZE, n+SIZE };
+		//int i = 0;
+		visited[n] = 1;
+		int i = 0;
+		int border = 0;
+		for(int j = 0; j < 4; j++){
+			printf("visited[tab[%d] = %d] = %d\n", j, tab[j], visited[tab[j]]);
+			if(visited[tab[j]] == 0){
+				i++;
+			}
 		}
-		printf("loop\n");
+		for(int j = 0; j < SIZE; j++){
+			if(n == j || n == SIZE*j || n == SIZE*(SIZE-1)+j || n == SIZE*(j+1)-1){
+				printf("border\n");
+				border = 1;
+			}
+		}
+
+		if(border == 0){
+
+			printf("i : %d\n", i);
+			int r = rand()%(4+1);
+			printf("r : %d\n", r);
+			while(i != 0 && r < 100){
+				if(visited[tab[r%4]] == 0){
+					if(n > tab[r%4]){
+						laby[tab[r%4]][n] = 0;
+					} else {
+						laby[n][tab[r%4]] = 0;
+					}
+					printf("tab[%d]\n", tab[r%4]);
+					genLabyDepth(laby, visited, SIZE, tab[r%4]);
+					i--;
+				} else {
+					r++;
+				}
+				printf("loop\n");
+			}
+		}
 	}
 }
 
