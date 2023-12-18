@@ -14,12 +14,22 @@
 #include "laby.h"
 
 
-#define SIZE 100
+#define SIZE 10
 
 int main(void){
 	int **laby = initLaby(SIZE);
-	genLaby(laby, SIZE);
+	//genLaby(laby, SIZE);
 	//showLaby(laby, SIZE);
+	prepLaby(laby, SIZE);
+	
+	int *visited = (int *)malloc(SIZE*sizeof(int));
+	for(int i = 0; i < SIZE; i++){
+		visited[i] = 1;
+		visited[SIZE*i] = 1;
+		visited[SIZE*(SIZE-1)+1] = 1;
+		visited[SIZE*(i+1)-1] = 1;
+	}
+	genLabyDepth(laby, visited, SIZE, SIZE+1);
 
 
 	// Graphical interface initialisation
