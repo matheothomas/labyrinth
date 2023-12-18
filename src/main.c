@@ -14,21 +14,22 @@
 #include "laby.h"
 
 
-#define SIZE 10
+#define SIZE 20
 
 int main(void){
+	srand(time(0));
 	int **laby = initLaby(SIZE);
 	//genLaby(laby, SIZE);
 	//showLaby(laby, SIZE);
 	prepLaby(laby, SIZE);
 	
-	int *visited = (int *)malloc(SIZE*sizeof(int));
-	for(int i = 0; i < SIZE; i++){
+	int *visited = (int *)malloc(SIZE*SIZE*sizeof(int));
+	/*for(int i = 0; i < SIZE; i++){
 		visited[i] = 1;
 		visited[SIZE*i] = 1;
-		visited[SIZE*(SIZE-1)+1] = 1;
+		visited[SIZE*(SIZE-1)+i] = 1;
 		visited[SIZE*(i+1)-1] = 1;
-	}
+	}*/
 	genLabyDepth(laby, visited, SIZE, SIZE+1);
 
 
