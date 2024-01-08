@@ -26,7 +26,7 @@ void showWindow(SDL_Renderer *renderer, int **laby, int SIZE){
 	double ratio = 700.0/SIZE;
 	for(int i = 0; i < SIZE*SIZE; i++){
 		for(int j = 0; j < SIZE*SIZE; j++){
-			if(laby[i][j] == 1){
+			if(laby[i][j] != 0){
 				//printf("laby[%d][%d] = 1\n", i, j);
 
 				y1 = ratio*(i/SIZE) + 40;
