@@ -20,6 +20,9 @@ void prepLaby(int **laby, int SIZE);
 
 void genLabyDepth(int **laby, int *visited, int SIZE, int n);
 
+void mixArray(int *tab, int SIZE);
+
+void genLabyKruskal(int **laby, int SIZE);
 
 #endif
 

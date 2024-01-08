@@ -88,53 +88,68 @@ void prepLaby(int **laby, int SIZE){
 
 
 void genLabyDepth(int **laby, int *visited, int SIZE, int n){
-	printf("recursion\n");
-	if(n >= SIZE*(SIZE-1)){
+	//printf("recursion\n");
+	if(n >= SIZE*(SIZE-1) || n < 0){
 
 	} else {
-
-		//int *tab = (int *)malloc(4*sizeof(int));
 		int tab[4] = { n-1, n+1, n-SIZE, n+SIZE };
-		//int i = 0;
 		visited[n] = 1;
 		int i = 0;
 		int border = 0;
-		for(int j = 0; j < 4; j++){
-			printf("visited[tab[%d] = %d] = %d\n", j, tab[j], visited[tab[j]]);
-			if(visited[tab[j]] == 0){
+		for(int j = 0; j < 4; j++){ 	// counts the number of unvisited neighbours
+			//printf("visited[tab[%d] = %d] = %d\n", j, tab[j], visited[tab[j]]);
+			if(visited[tab[j]] == 0 && tab[j] > 0 && tab[j] < SIZE*SIZE && tab[j]%SIZE != 1){
 				i++;
 			}
 		}
-		for(int j = 0; j < SIZE; j++){
+		for(int j = 0; j < SIZE; j++){ 	// detects if the node is a border
 			if(n == j || n == SIZE*j || n == SIZE*(SIZE-1)+j || n == SIZE*(j+1)-1){
-				printf("border\n");
+				//printf("border\n");
 				border = 1;
 			}
 		}
 
 		if(border == 0){
-
-			printf("i : %d\n", i);
-			int r = rand()%(4+1);
-			printf("r : %d\n", r);
-			while(i != 0 && r < 100){
+			//printf("i : %d\n", i);
+			int r = rand()%(4);
+			//printf("r : %d\n", r);
+			while(i > 0 && r < 100){
 				if(visited[tab[r%4]] == 0){
 					if(n > tab[r%4]){
 						laby[tab[r%4]][n] = 0;
 					} else {
 						laby[n][tab[r%4]] = 0;
 					}
-					printf("tab[%d]\n", tab[r%4]);
-					genLabyDepth(laby, visited, SIZE, tab[r%4]);
+					//printf("tab[%d]\n", tab[r%4]);
 					i--;
+					genLabyDepth(laby, visited, SIZE, tab[r%4]);
 				} else {
 					r++;
 				}
-				printf("loop\n");
+				//printf("loop\n");
 			}
 		}
 	}
 }
 
 
+void mixArray(int *tab, int SIZE){
+	int i, j, k, temp;
+	for(i = 0; i < SIZE; i++){
+		j = rand()%SIZE;
+		k = rand()%SIZE;
+		temp = tab[j];
+		tab[j] = tab[k];
+		tab[k] = temp;
+	}
 
+}
+
+void genLabyKruskal(int **laby, int SIZE){
+	int *tab = (int *)malloc(SIZE*SIZE*sizeof(int));
+	for(int i = 0; i < SIZE*SIZE; i++){
+		tab[i] = i;
+	}
+	mixArray(tab, SIZE);
+	
+}
